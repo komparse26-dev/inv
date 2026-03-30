@@ -1,12 +1,12 @@
 import streamlit as st
 import yfinance as yf
 import plotly.graph_objects as go
-from datetime import datetime
+import pandas as pd
 
 # Konfiguration der Webseite
-st.set_page_config(page_title="Rohstoff-Monitor", layout="wide")
+st.set_page_config(page_title="Rohstoff-Monitor", layout="wide", page_icon="📈")
 
-# 1. Daten-Definition (Dictionary)
+# 1. Daten-Definition
 COMMODITIES = {
     "Brent Öl": "BZ=F",
     "WTI Öl": "CL=F",
@@ -22,77 +22,78 @@ COMMODITIES = {
 # --- SIDEBAR ---
 st.sidebar.header("⚙️ Einstellungen")
 
-# Auswahlbox für den Rohstoff
 selected_label = st.sidebar.selectbox(
     "Wähle einen Rohstoff aus:",
     options=list(COMMODITIES.keys())
 )
 
-# Zeitraum-Auswahl
 period = st.sidebar.select_slider(
     "Zeitraum auswählen:",
     options=["1mo", "3mo", "6mo", "1y", "2y", "5y", "max"],
     value="1y"
 )
 
-# Ticker abrufen
 ticker_symbol = COMMODITIES[selected_label]
 
-# --- HAUPTBEREICH ---
-st.title(f"📊 Rohstoff-Analyse: {selected_label}")
-st.markdown(f"Aktuelle Marktdaten für **{selected_label}** ({ticker_symbol}) via Yahoo Finance.")
-
-# Daten laden
-@st.cache_data(ttl=3600)  # Speichert Daten für 1 Stunde zwischen
+# --- DATEN LADEN ---
+@st.cache_data(ttl=3600)
 def load_data(ticker, p):
-    df = yf.download(ticker, period=p)
+    # 'auto_adjust=True' sorgt für saubere Schlusskurse
+    df = yf.download(ticker, period=p, auto_adjust=True)
     return df
+
+st.title(f"📊 Rohstoff-Analyse: {selected_label}")
 
 with st.spinner('Lade Marktdaten...'):
     data = load_data(ticker_symbol, period)
 
-if not data.empty:
-    # Berechnungen für Metriken
-    # (Hinweis: yfinance gibt oft ein MultiIndex zurück, daher nutzen wir .iloc)
-    current_price = data['Close'].iloc[-1]
-    previous_price = data['Close'].iloc[-2]
-    change = current_price - previous_price
-    pct_change = (change / previous_price) * 100
+# --- FEHLERPRÜFUNG & ANZEIGE ---
+if data is not None and not data.empty:
+    try:
+        # Falls yfinance Multi-Index Spalten liefert, flach machen
+        if isinstance(data.columns, pd.MultiIndex):
+            data.columns = data.columns.get_level_values(0)
 
-    # Metriken in Spalten anzeigen
-    col1, col2, col3 = st.columns(3)
-    col1.metric("Aktueller Preis", f"{current_price:.2d} USD", f"{change:.2f} USD")
-    col2.metric("Veränderung (%)", f"{pct_change:.2f} %")
-    col3.metric("Letztes Update", data.index[-1].strftime('%d.%m.%Y'))
+        # Letzte Werte extrahieren (als reine Zahlenwerte)
+        current_price = float(data['Close'].iloc[-1])
+        previous_price = float(data['Close'].iloc[-2])
+        change = current_price - previous_price
+        pct_change = (change / previous_price) * 100
 
-    # Plotly Chart erstellen
-    fig = go.Figure()
-    fig.add_trace(go.Scatter(
-        x=data.index, 
-        y=data['Close'], 
-        mode='lines', 
-        name=selected_label,
-        line=dict(color='#00d1b2', width=2)
-    ))
+        # Metriken anzeigen
+        col1, col2, col3 = st.columns(3)
+        # Fix: hier war der Fehler .2d -> geändert auf .2f
+        col1.metric("Aktueller Preis", f"{current_price:.2f} USD", f"{change:.2f} USD")
+        col2.metric("Veränderung (%)", f"{pct_change:.2f} %")
+        col3.metric("Datum", data.index[-1].strftime('%d.%m.%Y'))
 
-    fig.update_layout(
-        template="plotly_dark",
-        title=f"Preisverlauf: {selected_label}",
-        xaxis_title="Datum",
-        yaxis_title="Preis in USD",
-        hovermode="x unified",
-        margin=dict(l=20, r=20, t=50, b=20)
-    )
+        # Chart erstellen
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(
+            x=data.index, 
+            y=data['Close'], 
+            mode='lines', 
+            name=selected_label,
+            line=dict(color='#00d1b2', width=2)
+        ))
 
-    st.plotly_chart(fig, use_container_width=True)
+        fig.update_layout(
+            template="plotly_dark",
+            xaxis_title="Datum",
+            yaxis_title="Preis in USD",
+            hovermode="x unified",
+            margin=dict(l=20, r=20, t=30, b=20)
+        )
 
-    # Tabelle mit Rohdaten (optional ausklappbar)
-    with st.expander("Rohdaten anzeigen"):
-        st.dataframe(data.tail(10), use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True)
 
+        with st.expander("Tabellenansicht der Daten"):
+            st.write(data.tail(15))
+
+    except Exception as e:
+        st.error(f"Fehler bei der Datenverarbeitung: {e}")
 else:
-    st.error(f"Keine Daten für {selected_label} gefunden. Möglicherweise ist das Ticker-Symbol {ticker_symbol} vorübergehend nicht erreichbar.")
+    st.warning(f"Keine Daten für {selected_label} gefunden. Das Ticker-Symbol {ticker_symbol} ist eventuell am Wochenende oder Feiertagen nicht aktiv.")
 
-# Footer
 st.sidebar.markdown("---")
-st.sidebar.info("Erstellt mit Python & Streamlit.")
+st.sidebar.info("Datenquelle: Yahoo Finance")
