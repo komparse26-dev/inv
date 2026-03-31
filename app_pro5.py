@@ -9,9 +9,9 @@ st.set_page_config(page_title="Rohstoff-Ticker Pro", layout="wide", page_icon="ð
 # HIER den CSS-Code einfÃ¼gen
 hide_st_style = """
             <style>
-            #MainMenu {visibility: hidden;}
+            MainMenu {visibility: hidden;}
             footer {visibility: hidden;}
-            header {visibility: hidden;}
+           #header {visibility: hidden;}
             </style>
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
