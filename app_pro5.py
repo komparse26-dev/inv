@@ -4,25 +4,18 @@ import plotly.graph_objects as go
 import pandas as pd
 
 # 1. Grundkonfiguration
-st.set_page_config(page_title="Rohstoff-Analyst Pro", layout="wide", page_icon="💹")
+st.set_page_config(page_title="Rohstoff-Ticker Pro", layout="wide", page_icon="💹")
 
-# --- STREAMLIT STYLING ANPASSEN ---
+# HIER den CSS-Code einfügen
 hide_st_style = """
             <style>
             #MainMenu {visibility: hidden;}
             footer {visibility: hidden;}
             header {visibility: hidden;}
-            
-            /* Optional: Den oberen Abstand verringern, damit der Chart höher rutscht */
-            .block-container {
-                padding-top: 2rem;
-                padding-bottom: 0rem;
-                padding-left: 5rem;
-                padding-right: 5rem;
-            }
             </style>
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
+
 
 # Rohstoff-Liste
 COMMODITIES = {
