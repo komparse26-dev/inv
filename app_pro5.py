@@ -12,6 +12,9 @@ hide_style = """
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
+   /* DIESE ZEILE BLENDET DEN 'MANAGE APP' BUTTON AUS */
+    div[data-testid="stStatusWidget"] {visibility: hidden;}
+
     .block-container {
         padding-top: 1rem;
         padding-bottom: 1rem;
