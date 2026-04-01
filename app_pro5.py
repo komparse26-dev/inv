@@ -9,7 +9,7 @@ st.set_page_config(page_title="Rohstoff-Analyst Pro", layout="wide")
 # --- DESIGN: KOPF/FUSSZEILE AUSBLENDEN & ABSTÄNDE OPTIMIEREN ---
 hide_style = """
     <style>
-    #MainMenu {visibility: hidden;}
+    MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
    /* DIESE ZEILE BLENDET DEN 'MANAGE APP' BUTTON AUS */
