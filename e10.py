@@ -42,5 +42,5 @@ def main():
             continue
         print(f"{s['price']:4.2f} € | {s['brand']} {s['name']} | {s['street']} {s['place']} | {s['dist']:.1f} km")
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
     main()
