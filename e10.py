@@ -8,6 +8,62 @@ FUEL_TYPE = "e10"
 
 st.set_page_config(page_title="E10 Benzinpreis-Ticker", page_icon="⛽")
 
+
+
+# ---------------------------------------------------------
+# 📍 GPS per JavaScript abfragen
+# ---------------------------------------------------------
+gps_code = """
+<script>
+navigator.geolocation.getCurrentPosition(
+    (pos) => {
+        const coords = pos.coords.latitude + "," + pos.coords.longitude;
+        window.parent.postMessage({type: "gps", coords: coords}, "*");
+    },
+    (err) => {
+        window.parent.postMessage({type: "gps_error", message: err.message}, "*");
+    }
+);
+</script>
+"""
+
+st.markdown(gps_code, unsafe_allow_html=True)
+
+# Listener für GPS-Daten
+gps_data = st.session_state.get("gps_data", None)
+
+message = st.experimental_get_query_params()
+
+# Streamlit empfängt die Daten über on_event
+def on_gps_event():
+    pass
+
+st.markdown("""
+<script>
+window.addEventListener("message", (event) => {
+    if (event.data.type === "gps") {
+        const coords = event.data.coords;
+        const url = new URL(window.location.href);
+        url.searchParams.set("gps", coords);
+        window.location.href = url.toString();
+    }
+});
+</script>
+""", unsafe_allow_html=True)
+
+# GPS aus URL lesen
+gps_param = st.experimental_get_query_params().get("gps", None)
+
+if gps_param:
+    lat, lng = gps_param[0].split(",")
+    LAT = float(lat)
+    LNG = float(lng)
+    st.success(f"📍 Standort erkannt: {LAT:.5f}, {LNG:.5f}")
+else:
+    st.warning("📍 Standort wird abgefragt… bitte Freigabe erteilen.")
+    st.stop()
+
+
 # ---------------------------------------------------------
 # 📱 Mobile-Optimierung
 # ---------------------------------------------------------
@@ -40,7 +96,6 @@ html, body, [class*="css"]  {
 st.title("⛽ E10 Benzinpreis‑Ticker")
 st.subheader("Live‑Preise basierend auf deinem Standort")
 
-st.info("Die Daten stammen von der Markttransparenzstelle (MTS-K).")
 
 
 # ---------------------------------------------------------
