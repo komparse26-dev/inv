@@ -44,6 +44,33 @@ def fetch_prices():
 # ---------------------------------------------------------
 st.set_page_config(page_title="E10 Benzinpreis-Ticker", page_icon="⛽")
 
+# 🔧 Mobile-Optimierung: kleinere Schrift
+st.markdown("""
+<style>
+html, body, [class*="css"]  {
+    font-size: 15px !important;
+}
+.price-card {
+    background: #f5f7fa;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid #dce1e6;
+    margin-bottom: 12px;
+}
+.price-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+.price-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: #0a7f00;
+    margin-bottom: 8px;
+}
+</style>
+""", unsafe_allow_html=True)
+
 st.title("⛽ E10 Benzinpreis‑Ticker")
 st.subheader("Region 90530 Wendelstein ±10 km")
 
@@ -77,10 +104,12 @@ for s in stations:
 
     st.markdown(
         f"""
-        ### {s['brand']} – {s['name']}
-        **Preis:** {s['price']} €  
-        **Adresse:** {s['street']}, {s['place']}  
-        **Entfernung:** {s['dist']:.1f} km  
-        ---
-        """
+        <div class="price-card">
+            <div class="price-title">{s['brand']} – {s['name']}</div>
+            <div class="price-value">{s['price']} €</div>
+            <div><b>Adresse:</b> {s['street']}, {s['place']}</div>
+            <div><b>Entfernung:</b> {s['dist']:.1f} km</div>
+        </div>
+        """,
+        unsafe_allow_html=True
     )
