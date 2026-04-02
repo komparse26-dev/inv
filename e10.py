@@ -58,7 +58,7 @@ html, body, [class*="css"]  {
     margin-bottom: 12px;
 }
 .price-title {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     margin-bottom: 6px;
 }
