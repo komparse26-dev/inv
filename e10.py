@@ -2,29 +2,71 @@ import streamlit as st
 import requests
 from datetime import datetime
 
-# ---------------------------------------------------------
-# 🔑 API-KEY EINTRAGEN
-# ---------------------------------------------------------
-API_KEY = "eff258d2-d6a8-4db9-94b3-95e514b48511"   # <-- HIER EINTRAGEN
+API_KEY = "eff258d2-d6a8-4db9-94b3-95e514b48511"
 
-# ---------------------------------------------------------
-# 📍 Standort Wendelstein (PLZ 90530)
-# ---------------------------------------------------------
-LAT = 49.352
-LNG = 11.150
-RADIUS_KM = 10
 FUEL_TYPE = "e10"
 
+st.set_page_config(page_title="E10 Benzinpreis-Ticker", page_icon="⛽")
 
 # ---------------------------------------------------------
-# 🔌 Funktion: Preise abrufen
+# 📱 Mobile-Optimierung
 # ---------------------------------------------------------
-def fetch_prices():
+st.markdown("""
+<style>
+html, body, [class*="css"]  {
+    font-size: 15px !important;
+}
+.price-card {
+    background: #f5f7fa;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid #dce1e6;
+    margin-bottom: 12px;
+}
+.price-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+.price-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: #0a7f00;
+    margin-bottom: 8px;
+}
+</style>
+""", unsafe_allow_html=True)
+
+st.title("⛽ E10 Benzinpreis‑Ticker")
+st.subheader("Live‑Preise basierend auf deinem Standort")
+
+st.info("Die Daten stammen von der Markttransparenzstelle (MTS-K).")
+
+
+# ---------------------------------------------------------
+# 📍 Standort abfragen
+# ---------------------------------------------------------
+st.write("### 📍 Standort wählen")
+
+location = st.map_input("Bitte Standort freigeben oder auf die Karte tippen")
+
+if location:
+    LAT = location["latitude"]
+    LNG = location["longitude"]
+else:
+    st.warning("Kein Standort gewählt – bitte Karte nutzen.")
+    st.stop()
+
+
+# ---------------------------------------------------------
+# 🔌 API-Abfrage
+# ---------------------------------------------------------
+def fetch_prices(lat, lng):
     url = "https://creativecommons.tankerkoenig.de/json/list.php"
     params = {
-        "lat": LAT,
-        "lng": LNG,
-        "rad": RADIUS_KM,
+        "lat": lat,
+        "lng": lng,
+        "rad": 10,
         "sort": "price",
         "type": FUEL_TYPE,
         "apikey": API_KEY,
@@ -39,48 +81,7 @@ def fetch_prices():
     return data
 
 
-# ---------------------------------------------------------
-# 🖥 Streamlit UI
-# ---------------------------------------------------------
-st.set_page_config(page_title="E10 Benzinpreis-Ticker", page_icon="⛽")
-
-# 🔧 Mobile-Optimierung: kleinere Schrift
-st.markdown("""
-<style>
-html, body, [class*="css"]  {
-    font-size: 16px !important;
-}
-.price-card {
-    background: gray;
-    padding: 16px;
-    border-radius: 10px;
-    border: 1px solid #dce1e6;
-    margin-bottom: 12px;
-}
-.price-title {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 6px;
-}
-.price-value {
-    font-size: 16px;
-    font-weight: 800;
-    color: #0a7f00;
-    margin-bottom: 8px;
-}
-</style>
-""", unsafe_allow_html=True)
-
-st.title("⛽ E10 Benzinpreis‑Ticker")
-st.subheader("Region 90530 Wendelstein ±10 km")
-
-# st.info("Die Daten stammen von der Markttransparenzstelle (MTS-K).")
-
-
-# ---------------------------------------------------------
-# 📡 API abrufen
-# ---------------------------------------------------------
-data = fetch_prices()
+data = fetch_prices(LAT, LNG)
 
 if not data.get("ok"):
     st.error(f"API‑Fehler: {data.get('message')}")
