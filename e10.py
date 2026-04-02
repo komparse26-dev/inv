@@ -1,13 +1,24 @@
+import streamlit as st
 import requests
 from datetime import datetime
 
-API_KEY = "eff258d2-d6a8-4db9-94b3-95e514b48511"  # <-- hier deinen Tankerkoenig API-Key eintragen
+# ---------------------------------------------------------
+# 🔑 API-KEY EINTRAGEN
+# ---------------------------------------------------------
+API_KEY = "eff258d2-d6a8-4db9-94b3-95e514b48511"   # <-- HIER EINTRAGEN
 
-LAT = 49.352   # Wendelstein
+# ---------------------------------------------------------
+# 📍 Standort Wendelstein (PLZ 90530)
+# ---------------------------------------------------------
+LAT = 49.352
 LNG = 11.150
 RADIUS_KM = 10
 FUEL_TYPE = "e10"
 
+
+# ---------------------------------------------------------
+# 🔌 Funktion: Preise abrufen
+# ---------------------------------------------------------
 def fetch_prices():
     url = "https://creativecommons.tankerkoenig.de/json/list.php"
     params = {
@@ -19,28 +30,57 @@ def fetch_prices():
         "apikey": API_KEY,
     }
 
-    r = requests.get(url, params=params, timeout=10)
-    data = r.json()
+    try:
+        r = requests.get(url, params=params, timeout=10)
+        data = r.json()
+    except Exception as e:
+        return {"ok": False, "message": f"Verbindungsfehler: {e}"}
 
-    if not data.get("ok"):
-        print("API-Fehler:", data.get("message"))
-        return []
+    return data
 
-    return data.get("stations", [])
 
-def main():
-    stations = fetch_prices()
-    if not stations:
-        print("Keine Daten erhalten.")
-        return
+# ---------------------------------------------------------
+# 🖥 Streamlit UI
+# ---------------------------------------------------------
+st.set_page_config(page_title="E10 Benzinpreis-Ticker", page_icon="⛽")
 
-    print("\n=== E10-Preise rund um 90530 (±10 km) ===")
-    print("Stand:", datetime.now().strftime("%d.%m.%Y %H:%M:%S"))
+st.title("⛽ E10 Benzinpreis‑Ticker")
+st.subheader("Region 90530 Wendelstein ±10 km")
 
-    for s in stations:
-        if s.get("price") is None:
-            continue
-        print(f"{s['price']:4.2f} € | {s['brand']} {s['name']} | {s['street']} {s['place']} | {s['dist']:.1f} km")
+st.info("Die Daten stammen von der Markttransparenzstelle (MTS-K).")
 
-#if __name__ == "__main__":
-    main()
+
+# ---------------------------------------------------------
+# 📡 API abrufen
+# ---------------------------------------------------------
+data = fetch_prices()
+
+if not data.get("ok"):
+    st.error(f"API‑Fehler: {data.get('message')}")
+    st.stop()
+
+stations = data.get("stations", [])
+
+if not stations:
+    st.warning("Keine Tankstellen gefunden.")
+    st.stop()
+
+
+# ---------------------------------------------------------
+# 📊 Ausgabe
+# ---------------------------------------------------------
+st.write(f"**Stand:** {datetime.now().strftime('%d.%m.%Y %H:%M:%S')}")
+
+for s in stations:
+    if s.get("price") is None:
+        continue
+
+    st.markdown(
+        f"""
+        ### {s['brand']} – {s['name']}
+        **Preis:** {s['price']} €  
+        **Adresse:** {s['street']}, {s['place']}  
+        **Entfernung:** {s['dist']:.1f} km  
+        ---
+        """
+    )
