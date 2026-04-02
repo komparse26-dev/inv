@@ -48,18 +48,18 @@ st.set_page_config(page_title="E10 Benzinpreis-Ticker", page_icon="⛽")
 st.markdown("""
 <style>
 html, body, [class*="css"]  {
-    font-size: 15px !important;
+    font-size: 16px !important;
 }
 .price-card {
-    background: #f5f7fa;
-    padding: 14px;
+    background: gray;
+    padding: 16px;
     border-radius: 10px;
     border: 1px solid #dce1e6;
     margin-bottom: 12px;
 }
 .price-title {
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 600;
     margin-bottom: 6px;
 }
 .price-value {
