@@ -58,12 +58,12 @@ html, body, [class*="css"]  {
     margin-bottom: 12px;
 }
 .price-title {
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 700;
     margin-bottom: 6px;
 }
 .price-value {
-    font-size: 22px;
+    font-size: 16px;
     font-weight: 800;
     color: #0a7f00;
     margin-bottom: 8px;
@@ -74,7 +74,7 @@ html, body, [class*="css"]  {
 st.title("⛽ E10 Benzinpreis‑Ticker")
 st.subheader("Region 90530 Wendelstein ±10 km")
 
-st.info("Die Daten stammen von der Markttransparenzstelle (MTS-K).")
+# st.info("Die Daten stammen von der Markttransparenzstelle (MTS-K).")
 
 
 # ---------------------------------------------------------
