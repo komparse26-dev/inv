@@ -6,7 +6,7 @@ import pandas as pd
 # ---------------------------------------------------------
 # 🔑 API-Keys
 # ---------------------------------------------------------
-TANKERKOENIG_API_KEY = "eff258d2-d6a8-4db9-94b3-95e514b48511"  # <-- hier deinen Tankerkoenig-Key eintragen
+TANKERKOENIG_API_KEY = "eff258d2-d6a8-4db9-94b3-95e514b48511"
 OPENCAGE_KEY = "0a9a41d618f646ffb134cb14830e46be"
 
 # ---------------------------------------------------------
@@ -36,18 +36,18 @@ html, body, [class*="css"]  {
     padding: 14px;
     border-radius: 10px;
     border: 1px solid #dce1e6;
-    margin-bottom: 12px;
+    margin-bottom: 6px;
 }
 .price-title {
     font-size: 14px;
     font-weight: 500;
-    margin-bottom: 6px;
+    margin-bottom: 3px;
 }
 .price-value {
     font-size: 18px;
     font-weight:600;
     color: #0a7f00;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
 }
 .badge {
     display: inline-block;
