@@ -198,7 +198,7 @@ if not data.get("ok"):
 stations = data.get("stations", [])
 
 if not stations:
-    st.warning("Dieser Standort liefert keine Preisinformation.")
+    st.warning("Dieser Standort liefert keine Spritpreis-Information.")
     st.stop()
 
 # ---------------------------------------------------------
