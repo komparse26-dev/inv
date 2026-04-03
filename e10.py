@@ -65,8 +65,6 @@ if not address:
     st.warning("Bitte einen Ort eingeben.")
     st.stop()
 
-eff258d2-d6a8-4db9-94b3-95e514b48511
-
 # Geocoding über Nominatim (mit User-Agent!)
 geo_url = "https://nominatim.openstreetmap.org/search"
 geo_params = {
