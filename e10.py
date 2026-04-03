@@ -32,7 +32,7 @@ html, body, [class*="css"]  {
     font-size: 14px !important;
 }
 
-.title {
+.page_title {
     font-size: 30px;
     padding: 14px;
     border-radius: 10px;
