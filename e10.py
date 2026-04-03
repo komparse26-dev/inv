@@ -6,7 +6,7 @@ import pandas as pd
 # ---------------------------------------------------------
 # 🔑 API-KEY EINTRAGEN
 # ---------------------------------------------------------
-API_KEY = "eff258d2-d6a8-4db9-94b3-95e514b48511"   # <-- HIER EINTRAGEN
+API_KEY = "DEIN_API_KEY_HIER"   # <-- HIER EINTRAGEN
 FUEL_TYPE = "e10"
 
 st.set_page_config(page_title="E10 Benzinpreis-Ticker", page_icon="⛽", layout="centered")
