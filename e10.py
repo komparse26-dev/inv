@@ -13,8 +13,8 @@ OPENCAGE_KEY = "0a9a41d618f646ffb134cb14830e46be"
 # 🔧 Streamlit Grundkonfiguration
 # ---------------------------------------------------------
 st.set_page_config(
-    page_title="Benzinpreis-Ticker",
-    page_icon="⛽",
+    title="Benzinpreis-Ticker",
+    icon="⛽",
     layout="centered"
 )
 
