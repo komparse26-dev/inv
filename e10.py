@@ -65,7 +65,9 @@ if not address:
     st.warning("Bitte einen Ort eingeben.")
     st.stop()
 
-# Geocoding über Nominatim
+eff258d2-d6a8-4db9-94b3-95e514b48511
+
+# Geocoding über Nominatim (mit User-Agent!)
 geo_url = "https://nominatim.openstreetmap.org/search"
 geo_params = {
     "q": address,
@@ -73,14 +75,20 @@ geo_params = {
     "limit": 1
 }
 
-geo_res = requests.get(geo_url, params=geo_params).json()
+headers = {
+    "User-Agent": "E10TickerApp/1.0 (contact: example@example.com)"
+}
 
-if not geo_res:
-    st.error("Ort nicht gefunden.")
-    st.stop()
+try:
+    geo_res = requests.get(geo_url, params=geo_params, headers=headers, timeout=10)
+    geo_json = geo_res.json()
+except Exception as e:
+    st.error(f"Geocoding-Fehler: {e}")
+    st.stop(): 
 
-LAT = float(geo_res[0]["lat"])
-LNG = float(geo_res[0]["lon"])
+LAT = float(geo_json[0]["lat"])
+LNG = float(geo_json[0]["lon"])
+
 
 st.success(f"📍 Standort erkannt: {address} ({LAT:.5f}, {LNG:.5f})")
 
