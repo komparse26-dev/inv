@@ -39,12 +39,12 @@ html, body, [class*="css"]  {
     margin-bottom: 12px;
 }
 .price-title {
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 700;
     margin-bottom: 6px;
 }
 .price-value {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 800;
     color: #0a7f00;
     margin-bottom: 8px;
@@ -53,8 +53,8 @@ html, body, [class*="css"]  {
     display: inline-block;
     padding: 2px 8px;
     border-radius: 999px;
-    background: #e3e7ff;
-    font-size: 11px;
+    background: gray;
+    font-size: 12px;
     margin-right: 4px;
 }
 </style>
