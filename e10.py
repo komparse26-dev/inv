@@ -82,7 +82,7 @@ try:
     geo_json = geo_res.json()
 except Exception as e:
     st.error(f"Geocoding-Fehler: {e}")
-    st.stop(): 
+    st.stop()
 
 LAT = float(geo_json[0]["lat"])
 LNG = float(geo_json[0]["lon"])
