@@ -18,6 +18,21 @@ st.set_page_config(
     layout="centered"
 )
 
+# Streamlit Kopf- und Fußzeile ausblenden
+st.markdown("""
+<style>
+/* Kopfzeile (Hamburger-Menü + "Made with Streamlit") */
+header {visibility: hidden;}
+
+/* Fußzeile */
+footer {visibility: hidden;}
+
+/* Menü oben rechts */
+#MainMenu {visibility: hidden;}
+</style>
+""", unsafe_allow_html=True)
+
+
 # Auto-Refresh alle 300 Sekunden (5 Minuten)
 st.markdown(
     '<meta http-equiv="refresh" content="300">', unsafe_allow_html=True
