@@ -31,6 +31,15 @@ st.markdown("""
 html, body, [class*="css"]  {
     font-size: 14px !important;
 }
+
+.title {
+    font-size: 30px;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid #dce1e6;
+    margin-bottom: 6px;
+}
+
 .price-card {
     background: gray;
     padding: 14px;
