@@ -13,7 +13,7 @@ OPENCAGE_KEY = "0a9a41d618f646ffb134cb14830e46be"
 # 🔧 Streamlit Grundkonfiguration
 # ---------------------------------------------------------
 st.set_page_config(
-    page_title="E10 Benzinpreis-Ticker Premium",
+    page_title="E10 Benzinpreis-Ticker",
     page_icon="⛽",
     layout="centered"
 )
@@ -29,7 +29,7 @@ st.markdown(
 st.markdown("""
 <style>
 html, body, [class*="css"]  {
-    font-size: 15px !important;
+    font-size: 14px !important;
 }
 .price-card {
     background: gray;
@@ -40,12 +40,12 @@ html, body, [class*="css"]  {
 }
 .price-title {
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 600;
     margin-bottom: 6px;
 }
 .price-value {
     font-size: 18px;
-    font-weight: 800;
+    font-weight:600;
     color: #0a7f00;
     margin-bottom: 8px;
 }
@@ -84,7 +84,7 @@ with col2:
 
 fuel_type = st.selectbox(
     "Kraftstoff",
-    options=[("e5", "E5"), ("e10", "E10"), ("diesel", "Diesel")],
+    options=[("e10", "E10"), ("diesel", "Diesel")],
     format_func=lambda x: x[1]
 )[0]
 
@@ -186,9 +186,9 @@ for s in stations:
             <div class="price-value">{s['price']} €</div>
             <div>
                 <span class="badge">{fuel_type.upper()}</span>
-                <span class="badge">{s['dist']:.1f} km entfernt</span>
+                <span class="badge">{s['dist']:.1f} entfernt</span>
             </div>
-            <div><b>Adresse:</b> {s['street']}, {s['place']}</div>
+            <div>{s['street']}, {s['place']}</div>
         </div>
         """,
         unsafe_allow_html=True
