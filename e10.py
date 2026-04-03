@@ -68,7 +68,7 @@ html, body, [class*="css"]  {
 # ---------------------------------------------------------
 # 🧩 Header
 # ---------------------------------------------------------
-st.page_title("⛽ Benzinpreis‑Ticker")
+st.title("⛽ Benzinpreis‑Ticker")
 #st.subheader("Live‑Preise basierend auf deinem Standort")
 #st.info("Daten: Markttransparenzstelle (MTS-K) + OpenCage Geocoding")
 
