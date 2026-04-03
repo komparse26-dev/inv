@@ -44,9 +44,9 @@ html, body, [class*="css"]  {
     margin-bottom: 3px;
 }
 .price-value {
-    font-size: 18px;
-    font-weight:600;
-    color: #0a7f00;
+    font-size: 22px;
+    font-weight:800;
+    color: red;
     margin-bottom: 4px;
 }
 .badge {
