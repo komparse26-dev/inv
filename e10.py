@@ -128,7 +128,7 @@ with col1:
     address = st.text_input("Adresse / Ort eingeben:", "Wendelstein")
 
 with col2:
-    radius = st.slider("Radius (km)", min_value=2, max_value=25, value=10, step=1)
+    radius = st.slider("Radius (km)", min_value=3, max_value=20, value=4, step=1)
 
 fuel_type = st.selectbox(
     "Kraftstoff",
