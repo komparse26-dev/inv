@@ -72,7 +72,7 @@ st.title("⛽ Benzinpreis‑Ticker")
 # ---------------------------------------------------------
 # 📍 Standort & Filter
 # ---------------------------------------------------------
-st.write("### 📍 Standort & Filter")
+#st.write("### 📍 Standort & Filter")
 
 col1, col2 = st.columns([2, 1])
 
@@ -186,9 +186,7 @@ for s in stations:
             <div class="price-value">{s['price']} €</div>
             <div>
                 <span class="badge">{fuel_type.upper()}</span>
-                <span class="badge">{s['dist']:.1f} entfernt</span>
-            </div>
-            <div>{s['street']}, {s['place']}</div>
+                <span class="badge">{s['dist']:.1f} km</span><div>{s['street']}, {s['place']}</div>
         </div>
         """,
         unsafe_allow_html=True
