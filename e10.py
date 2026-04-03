@@ -81,7 +81,7 @@ try:
     geo_res = requests.get(geo_url, params=geo_params, headers=headers, timeout=10)
     geo_json = geo_res.json()
 except Exception as e:
-    st.error(f"Geocoding-Fehler: {e}")
+    st.error("Geocoding-Fehler: {e}")
     st.stop()
 
 LAT = float(geo_json[0]["lat"])
