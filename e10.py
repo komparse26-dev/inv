@@ -6,7 +6,7 @@ import pandas as pd
 # ---------------------------------------------------------
 # 🔑 API-Keys
 # ---------------------------------------------------------
-TANKERKOENIG_API_KEY = "DEIN_TANKERKOENIG_KEY_HIER"  # <-- hier deinen Tankerkoenig-Key eintragen
+TANKERKOENIG_API_KEY = "eff258d2-d6a8-4db9-94b3-95e514b48511"  # <-- hier deinen Tankerkoenig-Key eintragen
 OPENCAGE_KEY = "0a9a41d618f646ffb134cb14830e46be"
 
 # ---------------------------------------------------------
