@@ -186,7 +186,7 @@ for s in stations:
             <div class="price-value">{s['price']} €</div>
             <div>
                 <span class="badge">{fuel_type.upper()}</span>
-                <span class="badge">{s['dist']:.1f} km</span><div>{s['street']}, {s['place']}</div>
+                <span class="badge">{s['dist']:.1f} km {s['street']}, {s['place']} </span></div>
         </div>
         """,
         unsafe_allow_html=True
