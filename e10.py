@@ -33,11 +33,7 @@ html, body, [class*="css"]  {
 }
 
 .page_title {
-    font-size: 30px;
-    padding: 14px;
-    border-radius: 10px;
-    border: 1px solid #dce1e6;
-    margin-bottom: 6px;
+    font-size: 25px;
 }
 
 .price-card {
@@ -45,7 +41,7 @@ html, body, [class*="css"]  {
     padding: 14px;
     border-radius: 10px;
     border: 1px solid #dce1e6;
-    margin-bottom: 6px;
+    margin-bottom: 6px
 }
 .price-title {
     font-size: 14px;
