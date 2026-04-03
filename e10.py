@@ -32,7 +32,7 @@ html, body, [class*="css"]  {
     font-size: 15px !important;
 }
 .price-card {
-    background: #f5f7fa;
+    background: gray;
     padding: 14px;
     border-radius: 10px;
     border: 1px solid #dce1e6;
@@ -164,14 +164,14 @@ st.write(f"**Stand:** {datetime.now().strftime('%d.%m.%Y %H:%M:%S')}")
 # ---------------------------------------------------------
 # 🗺️ Karte
 # ---------------------------------------------------------
-st.write("### 🗺️ Tankstellen auf Karte")
+#st.write("### 🗺️ Tankstellen auf Karte")
 
-map_df = pd.DataFrame([
-    {"lat": s["lat"], "lon": s["lng"], "name": s["name"], "price": s["price"]}
-    for s in stations
-])
+#map_df = pd.DataFrame([
+   # {"lat": s["lat"], "lon": s["lng"], "name": s["name"], "price": s["price"]}
+   # for s in stations
+#])
 
-st.map(map_df)
+#st.map(map_df)
 
 # ---------------------------------------------------------
 # 📊 Detailansicht als Premium-Boxen
