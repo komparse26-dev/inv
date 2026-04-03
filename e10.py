@@ -32,6 +32,34 @@ footer {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
 
+st.markdown("""
+<style>
+
+/* Entfernt den oberen Abstand der gesamten Seite */
+.block-container {
+    padding-top: 0rem !important;
+}
+
+/* Falls Streamlit einen zusätzlichen Abstand injiziert */
+main > div {
+    padding-top: 0rem !important;
+    margin-top: 0rem !important;
+}
+
+/* Header unsichtbar machen (falls noch aktiv) */
+header {
+    height: 0px !important;
+    visibility: hidden !important;
+}
+
+/* Toolbar entfernen */
+[data-testid="stToolbar"] {
+    display: none !important;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
 
 # Auto-Refresh alle 300 Sekunden (5 Minuten)
 st.markdown(
