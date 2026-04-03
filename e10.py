@@ -12,6 +12,16 @@ FUEL_TYPE = "e10"
 st.set_page_config(page_title="E10 Benzinpreis-Ticker", page_icon="⛽", layout="centered")
 
 # ---------------------------------------------------------
+# 🔄 Auto-Refresh alle 5 Minuten (ohne experimental)
+# ---------------------------------------------------------
+st.markdown(
+    """
+    <meta http-equiv="refresh" content="300">
+    """,
+    unsafe_allow_html=True
+)
+
+# ---------------------------------------------------------
 # 📱 Mobile-Optimierung
 # ---------------------------------------------------------
 st.markdown("""
@@ -43,14 +53,6 @@ html, body, [class*="css"]  {
 st.title("⛽ E10 Benzinpreis‑Ticker")
 st.subheader("Live‑Preise basierend auf deinem Standort")
 st.info("Die Daten stammen von der Markttransparenzstelle (MTS-K).")
-
-# ---------------------------------------------------------
-# 🔄 Auto-Refresh alle 5 Minuten
-# ---------------------------------------------------------
-st.experimental_set_query_params(refresh=str(datetime.now().timestamp()))
-st_autorefresh = st.experimental_rerun
-
-st.write("🔄 Die Seite aktualisiert sich automatisch alle **5 Minuten**.")
 
 # ---------------------------------------------------------
 # 📍 Standort per Adresseingabe
