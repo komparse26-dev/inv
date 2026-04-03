@@ -63,11 +63,11 @@ html, body, [class*="css"]  {
 # ---------------------------------------------------------
 # 🧩 Header
 # ---------------------------------------------------------
-st.title("⛽ Benzinpreis‑Ticker Premium")
-st.subheader("Live‑Preise basierend auf deinem Standort")
-st.info("Daten: Markttransparenzstelle (MTS-K) + OpenCage Geocoding")
+st.title("⛽ Benzinpreis‑Ticker")
+#st.subheader("Live‑Preise basierend auf deinem Standort")
+#st.info("Daten: Markttransparenzstelle (MTS-K) + OpenCage Geocoding")
 
-st.write("🔄 Die Seite aktualisiert sich automatisch alle **5 Minuten**.")
+#st.write("🔄 Die Seite aktualisiert sich automatisch alle **5 Minuten**.")
 
 # ---------------------------------------------------------
 # 📍 Standort & Filter
